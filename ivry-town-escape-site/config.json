@@ -1,0 +1,19 @@
+{
+  "gameTitle": "Affaire n°42 – Ivry Town",
+  "subtitle": "Enquête de Que Anh & Dr Maxime contre le gang des Pizza Addicts",
+  "caseNumber": "42",
+  "answers": {
+    "puzzle1": [
+      "PIZZA",
+      "IVRY",
+      "AMOUR"
+    ],
+    "puzzle2": [
+      "314",
+      "271",
+      "404"
+    ]
+  },
+  "teamSizeHint": "≈10 joueurs",
+  "supportEmail": ""
+}

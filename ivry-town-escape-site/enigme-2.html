@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ivry Town – Énigme 2</title>
+  <link rel="stylesheet" href="./assets.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">🕵️</div>
+        <div>
+          <h1 data-title>Ivry Town</h1>
+          <div class="sub" data-subtitle></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="pill" data-team>Équipe : —</div>
+        <div class="steps" data-steps></div>
+      </div>
+    </header>
+
+    
+<main>
+  <section class="card">
+    <h2>Énigme 2 — La pizza codée</h2>
+    <p>
+      Le gang a envoyé un message “en parts”.
+      Associez chaque symbole à un chiffre grâce à la feuille (ou en déduisant le motif),
+      puis obtenez un <b>code à 3 chiffres</b>.
+    </p>
+    <div class="notice">
+      <b>Mini-puzzle (site) :</b> additionnez les valeurs des 3 symboles ci-dessous (modulo 10) pour chaque chiffre.
+      <br/><span class="muted">Exemple : 🍕=4, 🧀=7, 🥤=2 → (4+7) mod 10 = 1</span>
+    </div>
+    <hr/>
+    <div class="card" style="background:rgba(255,255,255,.03); border-radius:18px; border:1px solid rgba(255,255,255,.08)">
+      <h2 style="margin-top:0">Séquence</h2>
+      <p style="font-size:22px; margin:8px 0">🍕 + 🧀 → 1er chiffre</p>
+      <p style="font-size:22px; margin:8px 0">🥤 + 🍕 → 2e chiffre</p>
+      <p style="font-size:22px; margin:8px 0">🧀 + 🥤 → 3e chiffre</p>
+      <p class="muted" style="margin-top:10px">Vous pouvez changer cette énigme (ou ses valeurs) en éditant la feuille papier. Le site sert surtout à valider.</p>
+    </div>
+    <hr/>
+    <div class="row">
+      <input id="ans" type="text" placeholder="Code à 3 chiffres (ex : 314)"/>
+      <button id="check">Valider</button>
+    </div>
+    <p id="msg" class="notice" hidden></p>
+  </section>
+
+  <aside class="card">
+    <h2>Notes de Dr Maxime</h2>
+    <p>« Les Pizza Addicts aiment les codes courts. Trois chiffres suffisent pour un coffre… »</p>
+    <hr/>
+    <button class="secondary" onclick="window.location.href='./enigme-1.html'">↩ Retour énigme 1</button>
+  </aside>
+</main>
+
+
+    <div class="footer">
+      Astuce orga : ouvrez ce dossier sur un téléphone par équipe (ou un PC sur une table).
+      <span class="kbd">Reset</span> : <a href="#" onclick="hardReset();return false;">réinitialiser cette équipe</a>.
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script>
+(async () => {
+  const cfg = await loadConfig();
+  renderHeader(cfg);
+  
+requireTeamOrRedirect();
+const st0 = ensureState();
+if(!st0.p1){ window.location.href = './enigme-1.html'; }
+
+const msg = document.getElementById('msg');
+const ans = document.getElementById('ans');
+const btn = document.getElementById('check');
+
+btn.addEventListener('click', async () => {
+  const cfg = await loadConfig();
+  const ok = (cfg.answers?.puzzle2 || []).map(normAnswer).includes(normAnswer(ans.value));
+  if(ok){
+    const st = ensureState();
+    st.p2 = true;
+    setState(st);
+    showNotice(msg, 'good', "✅ Code correct ! Le repaire est localisé…");
+    setTimeout(()=> window.location.href = './final.html', 650);
+  }else{
+    showNotice(msg, 'bad', "❌ Mauvais code. Vérifiez vos symboles et le calcul (modulo 10).");
+  }
+});
+
+})();
+</script>
+</body>
+</html>

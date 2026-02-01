@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ivry Town – Énigme 1</title>
+  <link rel="stylesheet" href="./assets.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">🕵️</div>
+        <div>
+          <h1 data-title>Ivry Town</h1>
+          <div class="sub" data-subtitle></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="pill" data-team>Équipe : —</div>
+        <div class="steps" data-steps></div>
+      </div>
+    </header>
+
+    
+<main>
+  <section class="card">
+    <h2>Énigme 1 — Le message du messager (papier)</h2>
+    <p>
+      Ouvrez votre enveloppe. Résolvez l’énigme du <b>cavalier</b> (ou celle imprimée sur la feuille A5).
+      Quand vous obtenez le <b>mot-clé</b>, saisissez-le ici pour déverrouiller la suite.
+    </p>
+    <hr/>
+    <div class="row">
+      <input id="ans" type="text" placeholder="Mot-clé (ex : PIZZA)"/>
+      <button id="check">Valider</button>
+    </div>
+    <p id="msg" class="notice" hidden></p>
+    <hr/>
+    <div class="notice">
+      <b>Indice (optionnel) :</b> le gang adore les mots courts, en majuscules. Les accents ne comptent pas.
+    </div>
+  </section>
+
+  <aside class="card">
+    <h2>Rappel</h2>
+    <p>Si vous bloquez, faites tourner la feuille : parfois l’orientation aide.</p>
+    <p class="muted">Quand c’est bon, vous passerez automatiquement à l’énigme 2.</p>
+  </aside>
+</main>
+
+
+    <div class="footer">
+      Astuce orga : ouvrez ce dossier sur un téléphone par équipe (ou un PC sur une table).
+      <span class="kbd">Reset</span> : <a href="#" onclick="hardReset();return false;">réinitialiser cette équipe</a>.
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script>
+(async () => {
+  const cfg = await loadConfig();
+  renderHeader(cfg);
+  
+requireTeamOrRedirect();
+const msg = document.getElementById('msg');
+const ans = document.getElementById('ans');
+const btn = document.getElementById('check');
+btn.addEventListener('click', async () => {
+  const cfg = await loadConfig();
+  const ok = (cfg.answers?.puzzle1 || []).map(normAnswer).includes(normAnswer(ans.value));
+  if(ok){
+    const st = ensureState();
+    st.p1 = true;
+    setState(st);
+    showNotice(msg, 'good', "✅ Mot-clé correct ! Dr Maxime a trouvé une piste…");
+    setTimeout(()=> window.location.href = './enigme-2.html', 650);
+  }else{
+    showNotice(msg, 'bad', "❌ Ce n’est pas le bon mot. Vérifiez l’ordre des lettres obtenues.");
+  }
+});
+
+})();
+</script>
+</body>
+</html>

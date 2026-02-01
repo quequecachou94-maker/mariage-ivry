@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ivry Town – Final</title>
+  <link rel="stylesheet" href="./assets.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">🕵️</div>
+        <div>
+          <h1 data-title>Ivry Town</h1>
+          <div class="sub" data-subtitle></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="pill" data-team>Équipe : —</div>
+        <div class="steps" data-steps></div>
+      </div>
+    </header>
+
+    
+<main>
+  <section class="card">
+    <h2>Final — Le repaire des Pizza Addicts</h2>
+    <p>
+      Grâce à votre enquête, le gang est démasqué… et Ivry Town est sauvée juste à temps.
+      <br/>Que Anh ferme le dossier. Dr Maxime ajuste ses lunettes.
+    </p>
+    <hr/>
+    <div class="notice good">
+      <b>BRAVO 🎉</b><br/>
+      Montrez cette page aux organisateurs pour récupérer la récompense (ou déclencher la surprise).
+    </div>
+    <hr/>
+    <h2>Révélation</h2>
+    <p>
+      Le chef du gang n’avait qu’un objectif : voler l’attention le jour du mariage.
+      Mais face à une équipe soudée… impossible.
+    </p>
+    <p class="muted">
+      (Option) Ajoutez ici un message romantique, une photo, ou un QR code vers une vidéo surprise.
+    </p>
+    <hr/>
+    <button class="secondary" onclick="hardReset()">Rejouer (reset cette équipe)</button>
+  </section>
+
+  <aside class="card">
+    <h2>Pour l’orga</h2>
+    <p>Vous pouvez remplacer ce texte par :</p>
+    <ul>
+      <li>le lieu d’un objet caché</li>
+      <li>un code pour ouvrir un coffre</li>
+      <li>un indice menant au photobooth / bar / urne</li>
+    </ul>
+  </aside>
+</main>
+
+
+    <div class="footer">
+      Astuce orga : ouvrez ce dossier sur un téléphone par équipe (ou un PC sur une table).
+      <span class="kbd">Reset</span> : <a href="#" onclick="hardReset();return false;">réinitialiser cette équipe</a>.
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script>
+(async () => {
+  const cfg = await loadConfig();
+  renderHeader(cfg);
+  
+requireTeamOrRedirect();
+const st = ensureState();
+if(!st.p2){ window.location.href = './enigme-2.html'; }
+st.finished = true;
+setState(st);
+
+})();
+</script>
+</body>
+</html>
