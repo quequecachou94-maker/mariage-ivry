@@ -1,0 +1,92 @@
+[index.html](https://github.com/user-attachments/files/24995520/index.html)
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ivry Town – Accueil</title>
+  <link rel="stylesheet" href="./assets.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">🕵️</div>
+        <div>
+          <h1 data-title>Ivry Town</h1>
+          <div class="sub" data-subtitle></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="pill" data-team>Équipe : —</div>
+        <div class="steps" data-steps></div>
+      </div>
+    </header>
+
+    
+<main>
+  <section class="card">
+    <h2>Bienvenue à Ivry Town</h2>
+    <p>
+      Détective <b>Que Anh</b>, votre équipe est appelée d’urgence.
+      Le gang des <b>Pizza Addicts</b> a laissé des indices… et un compte à rebours avant la cérémonie.
+    </p>
+    <hr/>
+    <h2>Entrer le nom de votre équipe</h2>
+    <p class="muted">Ex : “Table 7”, “Les Témoins”, “Team Margherita”…</p>
+    <div class="row">
+      <input id="team" type="text" placeholder="Nom d’équipe"/>
+      <button id="go">Commencer</button>
+    </div>
+    <p id="msg" class="notice" hidden></p>
+    <hr/>
+    <div class="notice">
+      <b>Matériel :</b> une enveloppe papier A5 par équipe + un smartphone.
+      <br/><b>Règle :</b> quand vous trouvez un mot / code sur la feuille, saisissez-le ici.
+    </div>
+  </section>
+
+  <aside class="card">
+    <h2>Plan de mission</h2>
+    <p>1) Résoudre l’énigme papier (cavalier, etc.)</p>
+    <p>2) Entrer le mot-clé pour débloquer la suite</p>
+    <p>3) Obtenir un code à 3 chiffres</p>
+    <p>4) Accéder au final</p>
+    <hr/>
+    <button class="secondary" onclick="window.location.href='./organisateur.html'">Mode organisateur</button>
+    <p class="muted">Pour éditer les réponses, ouvrez <span class="kbd">config.json</span>.</p>
+  </aside>
+</main>
+
+
+    <div class="footer">
+      Astuce orga : ouvrez ce dossier sur un téléphone par équipe (ou un PC sur une table).
+      <span class="kbd">Reset</span> : <a href="#" onclick="hardReset();return false;">réinitialiser cette équipe</a>.
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script>
+(async () => {
+  const cfg = await loadConfig();
+  renderHeader(cfg);
+  
+const input = document.getElementById('team');
+const btn = document.getElementById('go');
+const msg = document.getElementById('msg');
+btn.addEventListener('click', () => {
+  const name = (input.value||'').trim();
+  if(!name){
+    showNotice(msg, 'bad', "Entre un nom d’équipe pour commencer 🙂");
+    return;
+  }
+  const st = ensureState();
+  st.team = name;
+  setState(st);
+  window.location.href = './enigme-1.html';
+});
+
+})();
+</script>
+</body>
+</html>
