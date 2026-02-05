@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ivry Town – Orga</title>
+  <link rel="stylesheet" href="./assets.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">🕵️</div>
+        <div>
+          <h1 data-title>Ivry Town</h1>
+          <div class="sub" data-subtitle></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="pill" data-team>Équipe : —</div>
+        <div class="steps" data-steps></div>
+      </div>
+    </header>
+
+    
+<main>
+  <section class="card">
+    <h2>Mode organisateur</h2>
+    <p class="muted">
+      Cette page sert à personnaliser rapidement le site.
+      Pour changer les réponses acceptées, éditez <span class="kbd">config.json</span>.
+    </p>
+    <hr/>
+    <h2>Réglages rapides</h2>
+    <p>Réponses actuelles chargées depuis <span class="kbd">config.json</span> :</p>
+    <div id="cfg" class="notice"></div>
+    <hr/>
+    <div class="row">
+      <button class="secondary" onclick="hardReset()">Reset (sur cet appareil)</button>
+      <button onclick="window.location.href='./index.html'">Retour accueil</button>
+    </div>
+    <hr/>
+    <h2>Déploiement</h2>
+    <p>
+      Ce site est <b>100% statique</b>. Vous pouvez l’héberger sur :
+      <br/>• GitHub Pages • Netlify • Vercel • ou le mettre sur une tablette hors-ligne (dossier local).
+    </p>
+    <div class="notice">
+      <b>Astuce mariage (140 pers.) :</b> un téléphone par équipe.  
+      Le progrès est stocké <b>localement</b> (localStorage), donc chaque équipe avance indépendamment.
+    </div>
+  </section>
+
+  <aside class="card">
+    <h2>Checklist</h2>
+    <p>✅ 1 enveloppe A5 / équipe</p>
+    <p>✅ QR code vers <span class="kbd">index.html</span></p>
+    <p>✅ Réponses dans <span class="kbd">config.json</span></p>
+    <p>✅ Une “récompense” au final</p>
+  </aside>
+</main>
+
+
+    <div class="footer">
+      Astuce orga : ouvrez ce dossier sur un téléphone par équipe (ou un PC sur une table).
+      <span class="kbd">Reset</span> : <a href="#" onclick="hardReset();return false;">réinitialiser cette équipe</a>.
+    </div>
+  </div>
+
+<script src="./app.js"></script>
+<script>
+(async () => {
+  const cfg = await loadConfig();
+  renderHeader(cfg);
+  
+const cfgBox = document.getElementById('cfg');
+const cfg = await loadConfig();
+cfgBox.innerHTML = `
+  <b>Énigme 1 (mots acceptés) :</b> ${(cfg.answers?.puzzle1||[]).join(', ') || '—'}<br/>
+  <b>Énigme 2 (codes acceptés) :</b> ${(cfg.answers?.puzzle2||[]).join(', ') || '—'}
+`;
+
+})();
+</script>
+</body>
+</html>
